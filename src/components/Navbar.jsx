@@ -42,12 +42,12 @@ export default function Navbar() {
             <span style={{ fontFamily: "'Alex Brush', cursive", fontSize: '2.5rem', fontWeight: 400, paddingRight: '10px', background: 'linear-gradient(135deg, #00D4FF, #00FFB2)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', filter: 'drop-shadow(0 0 10px rgba(0,212,255,0.4))' }}>DP</span>
           </div>
 
-          <div className="hidden md:flex items-center space-x-1 glass-panel rounded-full px-4 py-1.5">
+          <div className="hidden lg:flex items-center space-x-1 glass-panel rounded-full px-4 py-1.5">
             {navLinks.map((item) => (
               <button
                 key={item}
                 onClick={() => scrollTo(item === 'Home' ? 'hero' : item.toLowerCase())}
-                className="px-3 py-1.5 text-xs md:text-sm font-medium text-gray-300 hover:text-white transition-colors relative group"
+                className="px-3 py-1.5 text-xs lg:text-sm font-medium text-gray-300 hover:text-white transition-colors relative group"
               >
                 {item}
                 <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-[var(--accent-blue)] transition-all duration-300 group-hover:w-1/2 rounded-full shadow-[0_0_8px_var(--accent-blue)]"></span>
@@ -58,14 +58,14 @@ export default function Navbar() {
           <div className="flex items-center gap-4">
             <button
               onClick={() => scrollTo('contact')}
-              className="hidden md:flex px-6 py-2.5 rounded-full bg-white text-black text-sm font-semibold hover:scale-105 transition-transform"
+              className="hidden lg:flex px-6 py-2.5 rounded-full bg-white text-black text-sm font-semibold hover:scale-105 transition-transform"
             >
               Contact Me
             </button>
 
-            {/* Mobile Menu Toggle */}
+            {/* Mobile Menu Toggle — shows on all screens below lg (1024px) */}
             <button 
-              className="md:hidden flex flex-col items-center justify-center w-10 h-10 rounded-full border border-white/10 bg-white/5 relative z-50"
+              className="lg:hidden flex flex-col items-center justify-center w-10 h-10 rounded-full border border-white/10 bg-white/5 relative z-50"
               onClick={() => setIsOpen(!isOpen)}
             >
               <span className={`w-5 h-[2px] bg-white transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-1.5' : '-translate-y-1'}`}></span>
@@ -84,7 +84,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-[#020202]/95 backdrop-blur-xl flex flex-col items-center justify-center md:hidden pt-20 pb-10 px-6"
+            className="fixed inset-0 z-40 bg-[#020202]/95 backdrop-blur-xl flex flex-col items-center justify-center lg:hidden pt-20 pb-10 px-6"
           >
             <div className="flex flex-col items-center space-y-6 w-full max-w-sm">
               {navLinks.map((item, i) => (
