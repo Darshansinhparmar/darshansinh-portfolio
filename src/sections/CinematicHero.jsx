@@ -71,7 +71,7 @@ export default function CinematicHero() {
   return (
     <section 
       id="hero" 
-      className="min-h-[100dvh] w-full relative bg-[#020202] overflow-hidden flex items-center"
+      className="h-[100dvh] w-full relative bg-[#020202] overflow-hidden"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ perspective: "2000px" }}
@@ -94,8 +94,8 @@ export default function CinematicHero() {
         {/* Left deep black gradient for text readability */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#020202] via-[#020202]/90 to-transparent w-[80%] md:w-[60%]" />
         
-        {/* Bottom deep fade */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-transparent to-transparent opacity-90" />
+        {/* Bottom deep fade — stronger so no gap shows between hero and about */}
+        <div className="absolute bottom-0 left-0 right-0 h-[40%] bg-gradient-to-t from-[#020202] via-[#020202]/80 to-transparent" />
         
         {/* Subtle purple ambient glow on the left */}
         <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[800px] h-[800px] bg-[var(--accent-purple)]/15 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
@@ -129,7 +129,7 @@ export default function CinematicHero() {
       </div>
 
       {/* 3. PREMIUM TYPOGRAPHY OVERLAY */}
-      <div className="container-custom relative z-10 w-full h-full flex items-center pt-[100px] pb-16 lg:pt-24 lg:pb-0">
+      <div className="container-custom relative z-10 w-full h-full flex items-start pt-[110px] lg:pt-[130px]">
         <motion.div 
           className="max-w-3xl flex flex-col items-start"
           style={{ rotateX: contentRotateX, rotateY: contentRotateY, transformStyle: "preserve-3d" }}
