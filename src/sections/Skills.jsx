@@ -149,12 +149,7 @@ export default function Skills() {
         </motion.h2>
 
         {/* ── BENTO GRID ── */}
-        <div
-          className="grid gap-3"
-          style={{
-            gridTemplateColumns: 'repeat(6, 1fr)',
-          }}
-        >
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
           {skills.map((skill, i) => (
             <SkillCard key={skill.name} skill={skill} index={i} />
           ))}
