@@ -71,14 +71,14 @@ export default function CinematicHero() {
   return (
     <section 
       id="hero" 
-      className="h-[100dvh] w-full relative bg-[#020202] overflow-hidden"
+      className="h-auto lg:h-[100dvh] w-full relative bg-[#020202] overflow-hidden"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ perspective: "2000px" }}
     >
       {/* 1. IMMERSIVE BACKGROUND */}
       <motion.div 
-        className="absolute inset-[-2%] w-[104%] h-[104%] z-0"
+        className="absolute inset-0 min-h-full w-full z-0"
         style={{ x: bgX, y: bgY }}
       >
         {/* Background Image */}
@@ -129,7 +129,7 @@ export default function CinematicHero() {
       </div>
 
       {/* 3. PREMIUM TYPOGRAPHY OVERLAY */}
-      <div className="container-custom relative z-10 w-full h-full flex items-start pt-[110px] lg:pt-[130px]">
+      <div className="container-custom relative z-10 w-full flex items-start pt-[100px] pb-16 lg:h-full lg:pt-[130px] lg:pb-0">
         <motion.div 
           className="max-w-3xl flex flex-col items-start"
           style={{ rotateX: contentRotateX, rotateY: contentRotateY, transformStyle: "preserve-3d" }}
