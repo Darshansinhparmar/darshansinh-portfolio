@@ -47,7 +47,7 @@ const contacts = [
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative py-24 overflow-hidden bg-[#030308]">
+    <section id="contact" className="relative py-12 md:py-24 overflow-hidden bg-[#030308]">
 
       {/* Background */}
       <div className="absolute inset-0 z-0 pointer-events-none">

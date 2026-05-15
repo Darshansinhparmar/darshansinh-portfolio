@@ -70,7 +70,7 @@ const methods = [
 
 export default function Methods() {
   return (
-    <section id="methods" className="relative py-20 overflow-hidden bg-[#030308]">
+    <section id="methods" className="relative py-12 md:py-20 overflow-hidden bg-[#030308]">
 
       {/* Background — same subtle dot grid, different orientation */}
       <div className="absolute inset-0 z-0 pointer-events-none">

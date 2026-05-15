@@ -62,7 +62,7 @@ export default function About() {
       id="about" 
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative py-24 flex items-center justify-center overflow-hidden bg-[#030308]"
+      className="relative py-12 md:py-24 flex items-center justify-center overflow-hidden bg-[#030308]"
     >
       {/* 1. DIGITAL NEURAL GRID BACKGROUND SYSTEM */}
       <div className="absolute inset-0 z-0 pointer-events-none">

@@ -71,7 +71,7 @@ export default function CinematicHero() {
   return (
     <section 
       id="hero" 
-      className="h-[100dvh] w-full relative bg-[#020202] overflow-hidden flex items-center"
+      className="h-[100dvh] max-md:h-auto max-md:pb-20 w-full relative bg-[#020202] overflow-hidden flex items-center"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ perspective: "2000px" }}
@@ -83,7 +83,7 @@ export default function CinematicHero() {
       >
         {/* Background Image */}
         <motion.div
-          className="absolute inset-0 bg-cover bg-center md:bg-right bg-no-repeat"
+          className="absolute inset-0 bg-cover max-md:bg-[position:75%_center] md:bg-right bg-no-repeat"
           style={{ backgroundImage: "url('/cyberpunk-hero.jpg')" }}
           initial={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
@@ -129,7 +129,7 @@ export default function CinematicHero() {
       </div>
 
       {/* 3. PREMIUM TYPOGRAPHY OVERLAY */}
-      <div className="container-custom relative z-10 w-full h-full flex items-center pt-24">
+      <div className="container-custom relative z-10 w-full h-full flex items-start pt-[120px] md:items-center md:pt-24">
         <motion.div 
           className="max-w-3xl flex flex-col items-start"
           style={{ rotateX: contentRotateX, rotateY: contentRotateY, transformStyle: "preserve-3d" }}

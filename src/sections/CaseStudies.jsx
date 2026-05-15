@@ -122,7 +122,7 @@ function CaseCard({ data }) {
 
 export default function CaseStudies() {
   return (
-    <section id="work" className="py-32 relative">
+    <section id="work" className="py-12 md:py-32 relative">
       <div className="container-custom grid-12">
         {/* Left (5 columns): Intro */}
         <div className="col-span-12 lg:col-span-5 mb-16 lg:mb-0">
