@@ -71,7 +71,7 @@ export default function CinematicHero() {
   return (
     <section 
       id="hero" 
-      className="h-screen w-full relative bg-[#020202] overflow-hidden flex items-center"
+      className="h-[100dvh] w-full relative bg-[#020202] overflow-hidden flex items-center"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ perspective: "2000px" }}
@@ -83,7 +83,7 @@ export default function CinematicHero() {
       >
         {/* Background Image */}
         <motion.div
-          className="absolute inset-0 bg-contain bg-right bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-center md:bg-right bg-no-repeat"
           style={{ backgroundImage: "url('/cyberpunk-hero.jpg')" }}
           initial={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
