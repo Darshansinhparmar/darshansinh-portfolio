@@ -26,7 +26,7 @@ export default function Navbar() {
     }
   };
 
-  const navLinks = ['Home', 'Work', 'About', 'Skills', 'Contact'];
+  const navLinks = ['Home', 'Work', 'About', 'Skills',];
 
   return (
     <>
@@ -64,7 +64,7 @@ export default function Navbar() {
             </button>
 
             {/* Mobile Menu Toggle — shows on all screens below lg (1024px) */}
-            <button 
+            <button
               className="lg:hidden flex flex-col items-center justify-center w-10 h-10 rounded-full border border-white/10 bg-white/5 relative z-50"
               onClick={() => setIsOpen(!isOpen)}
             >
@@ -79,7 +79,7 @@ export default function Navbar() {
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
