@@ -39,7 +39,6 @@ export default function Navbar() {
       >
         <div className="container-custom flex items-center justify-between">
           <div className="text-xl font-bold tracking-tight cursor-pointer flex items-center" onClick={() => scrollTo('hero')}>
-            <span style={{ fontFamily: "'Alex Brush', cursive", fontSize: '2.5rem', fontWeight: 400, paddingRight: '10px', background: 'linear-gradient(135deg, #00D4FF, #00FFB2)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', filter: 'drop-shadow(0 0 10px rgba(0,212,255,0.4))' }}>DP</span>
           </div>
 
           <div className="hidden lg:flex items-center space-x-1 glass-panel rounded-full px-4 py-1.5">
