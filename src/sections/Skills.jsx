@@ -1,178 +1,130 @@
 import { motion } from 'framer-motion';
 
-// ── SKILL DATA — top skills featured (span=2), rest normal ─────────────────
-const skills = [
-  { name: "UI/UX Design",            level: 90, cat: "Design",   color: "#00D4FF" },
-  { name: "Product Design",          level: 88, cat: "Design",   color: "#00D4FF" },
-  { name: "AI-Assisted Design",      level: 88, cat: "AI",       color: "#00D4FF" },
-  { name: "Generative AI Workflow",  level: 89, cat: "AI",       color: "#00FFB2" },
-  { name: "Design Systems",          level: 85, cat: "Systems",  color: "#00FFB2" },
-  { name: "UX Flow Design",          level: 86, cat: "Systems",  color: "#00FFB2" },
-  { name: "Interaction Design",      level: 87, cat: "Design",   color: "#00D4FF" },
-  { name: "Responsive Design",       level: 88, cat: "Dev",      color: "#00FFB2" },
-  { name: "Motion Design",           level: 84, cat: "Motion",   color: "#FFDD00" },
-  { name: "Micro Interactions",      level: 86, cat: "Motion",   color: "#FFDD00" },
-  { name: "Interactive Prototyping", level: 87, cat: "Design",   color: "#00D4FF" },
-  { name: "Human-Centered AI",       level: 85, cat: "AI",       color: "#00D4FF" },
-  { name: "Frontend Thinking",       level: 82, cat: "Dev",      color: "#00FFB2" },
-  { name: "Problem Solving",         level: 90, cat: "Thinking", color: "#FF6B6B" },
+const skillGroups = [
+  {
+    title: 'Core Design',
+    accent: '#6C63FF',
+    items: [
+      { name: 'UI/UX & Product Design', desc: 'User-centred interface design & product strategy' },
+      { name: 'UX Flow Architecture', desc: 'End-to-end user journeys & wireframing' },
+      { name: 'Interactive Prototyping', desc: 'High-fidelity motion & micro-interaction specs' },
+      { name: 'Information Architecture', desc: 'Sitemaps, node navigation & visual hierarchy' },
+    ],
+  },
+  {
+    title: 'Enterprise AI Systems',
+    accent: '#10B981',
+    items: [
+      { name: 'AI-Assisted Workflows', desc: 'Human-in-the-loop AI interface patterns' },
+      { name: 'Risk & Governance UX', desc: 'Audit dashboards & real-time analytics' },
+      { name: 'Explainable AI (XAI)', desc: 'Trust signals & decision transparency' },
+      { name: 'Rule Builder Architecture', desc: 'No-code workflow interfaces' },
+    ],
+  },
+  {
+    title: 'Design Systems',
+    accent: '#C084FC',
+    items: [
+      { name: 'Design System Architecture', desc: 'Reusable Figma libraries & auto-layout variants' },
+      { name: 'Accessibility (WCAG AA)', desc: 'Color contrast compliance & screen-reader labelling' },
+      { name: 'Multi-Brand Tokens', desc: 'Dark/Light mode color tokens & typography scales' },
+      { name: 'Developer Handoff', desc: 'Figma specs, layout docs & token sync' },
+    ],
+  },
+  {
+    title: 'Technical Execution',
+    accent: '#F59E0B',
+    items: [
+      { name: 'Frontend Thinking', desc: 'Translating UI specs into React & Tailwind code' },
+      { name: 'Responsive Layouts', desc: 'Mobile-first & multi-breakpoint grid design' },
+      { name: 'Motion Design', desc: 'Framer Motion & micro-interaction animation' },
+      { name: 'Problem Solving', desc: 'Analytical approach to complex user problems' },
+    ],
+  },
 ];
 
-function SkillCard({ skill, index }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30, scale: 0.95 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: '-10%' }}
-      transition={{ duration: 0.5, delay: index * 0.04, ease: [0.16, 1, 0.3, 1] }}
-      whileHover={{ scale: 1.03, y: -3 }}
-      className="group relative overflow-hidden rounded-2xl cursor-default"
-    >
-      {/* Card base */}
-      <div
-        className="relative h-full w-full p-6 rounded-2xl flex flex-col justify-between transition-all duration-400"
-        style={{
-          background: '#0C0C14',
-          border: `1px solid rgba(255,255,255,0.06)`,
-          minHeight: '130px',
-        }}
-      >
-        {/* Hover glow fill */}
-        <div
-          className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none"
-          style={{
-            background: `radial-gradient(ellipse at 30% 40%, ${skill.color}18 0%, transparent 70%)`,
-          }}
-        />
-
-        {/* Glow border on hover */}
-        <div
-          className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none"
-          style={{ boxShadow: `inset 0 0 0 1px ${skill.color}40` }}
-        />
-
-        {/* Top: Category + Level */}
-        <div className="flex items-center justify-between mb-3 relative z-10">
-          <span
-            className="text-[10px] uppercase tracking-[0.2em] font-semibold font-body"
-            style={{ color: skill.color + 'AA' }}
-          >
-            {skill.cat}
-          </span>
-          <motion.span
-            className="font-mono text-sm font-bold"
-            style={{ color: skill.color }}
-            animate={{ opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 3, repeat: Infinity, delay: index * 0.3 }}
-          >
-            {skill.level}%
-          </motion.span>
-        </div>
-
-        {/* Skill Name */}
-        <div className="relative z-10">
-          <h3 className="font-heading font-semibold tracking-tight text-white/80 group-hover:text-white transition-colors duration-300 leading-tight text-base md:text-lg">
-            {skill.name}
-          </h3>
-
-          {/* Thin animated bar at bottom */}
-          <div className="mt-3 h-[2px] w-full bg-white/[0.05] rounded-full overflow-hidden">
-            <motion.div
-              initial={{ width: 0 }}
-              whileInView={{ width: `${skill.level}%` }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.3, delay: 0.2 + index * 0.04, ease: [0.16, 1, 0.3, 1] }}
-              className="h-full rounded-full"
-              style={{ background: `linear-gradient(90deg, ${skill.color}60, ${skill.color})` }}
-            />
-          </div>
-        </div>
-
-        {/* Corner glow dot */}
-        <div
-          className="absolute top-3 right-3 w-1.5 h-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-          style={{ background: skill.color, boxShadow: `0 0 8px ${skill.color}` }}
-        />
-      </div>
-    </motion.div>
-  );
-}
+const tools = ['Figma', 'FigJam', 'Framer', 'React', 'Tailwind CSS', 'Adobe XD', 'Notion', 'Jira'];
 
 export default function Skills() {
   return (
-    <section id="skills" className="relative py-12 md:py-20 overflow-hidden bg-[#030308]">
-
-      {/* Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div
-          className="absolute inset-0 opacity-[0.06]"
-          style={{
-            backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px)`,
-            backgroundSize: '40px 40px',
-            maskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%)',
-          }}
-        />
-        {/* Ambient glow — electric cyan */}
-        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[300px] bg-[#00D4FF] rounded-full blur-[180px] opacity-[0.04]" />
-        <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[400px] h-[300px] bg-[#00FFB2] rounded-full blur-[180px] opacity-[0.04]" />
-        <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-[#030308] to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#030308] to-transparent" />
-      </div>
+    <section id="skills" className="relative py-24 lg:py-32 bg-[#06060C]">
+      {/* Subtle left glow */}
+      <div
+        className="absolute left-0 top-1/2 -translate-y-1/2 w-80 h-80 rounded-full opacity-10 pointer-events-none"
+        style={{ background: 'radial-gradient(circle, #C084FC 0%, transparent 70%)' }}
+      />
 
       <div className="container-custom relative z-10">
 
-        {/* ── HEADER ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="flex items-center justify-center gap-3 mb-4"
-        >
-          <div className="w-12 h-[1px] bg-white/20" />
-          <span className="text-gray-400 text-xs uppercase tracking-[0.22em] font-body font-medium">Skill Arsenal</span>
-          <div className="w-12 h-[1px] bg-white/20" />
-        </motion.div>
+        {/* Header */}
+        <div className="text-center max-w-xl mx-auto mb-16">
+          <span className="label mb-4 block justify-center">Skill Taxonomy</span>
+          <h2 className="font-heading text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
+            Design & Systems <span className="text-accent-gradient">Arsenal</span>
+          </h2>
+          <p className="text-[#6060A0] text-sm leading-relaxed">
+            A structured breakdown of core product design capabilities, enterprise AI frameworks, and technical execution skills.
+          </p>
+        </div>
 
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-white tracking-tight font-heading mb-10"
-        >
-          Skills Behind{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] to-[#00FFB2]">
-            Modern Digital Products
-          </span>
-        </motion.h2>
+        {/* Skill groups grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-12">
+          {skillGroups.map((group, gi) => (
+            <motion.div
+              key={group.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: gi * 0.08 }}
+              className="card p-6 sm:p-7"
+            >
+              {/* Group header */}
+              <div className="flex items-center gap-3 mb-5 pb-4 border-b border-white/[0.05]">
+                <div
+                  className="w-3 h-3 rounded-full flex-shrink-0"
+                  style={{ background: group.accent, boxShadow: `0 0 10px ${group.accent}80` }}
+                />
+                <h3 className="font-heading text-base font-bold text-white">{group.title}</h3>
+              </div>
 
-        {/* ── BENTO GRID ── */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
-          {skills.map((skill, i) => (
-            <SkillCard key={skill.name} skill={skill} index={i} />
+              {/* Items */}
+              <div className="grid grid-cols-1 gap-3">
+                {group.items.map((item) => (
+                  <div
+                    key={item.name}
+                    className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:border-white/10 transition-colors group"
+                  >
+                    <div
+                      className="text-sm font-semibold text-white mb-0.5 group-hover:text-[#C0C0FF] transition-colors"
+                    >
+                      {item.name}
+                    </div>
+                    <div className="text-xs text-[#5050A0]">{item.desc}</div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
           ))}
         </div>
 
-        {/* ── LEGEND ── */}
+        {/* Tools row */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-8"
+          transition={{ duration: 0.4 }}
+          className="flex flex-wrap justify-center gap-3"
         >
-          {[
-            { label: 'Design / AI', color: '#00D4FF' },
-            { label: 'Systems / Dev', color: '#00FFB2' },
-            { label: 'Motion', color: '#FFDD00' },
-            { label: 'Thinking', color: '#FF6B6B' },
-          ].map(l => (
-            <span key={l.label} className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.14em] font-body text-gray-600">
-              <span className="w-1.5 h-1.5 rounded-full" style={{ background: l.color }} />
-              {l.label}
-            </span>
+          <div className="w-full text-center text-[10px] uppercase tracking-widest text-[#4040A0] font-semibold mb-2">
+            Tools & Platforms
+          </div>
+          {tools.map((tool) => (
+            <div
+              key={tool}
+              className="px-4 py-2 rounded-lg bg-white/[0.03] border border-white/[0.07] text-sm text-[#9090B0] hover:text-white hover:border-[#6C63FF]/40 transition-all cursor-default"
+            >
+              {tool}
+            </div>
           ))}
         </motion.div>
 

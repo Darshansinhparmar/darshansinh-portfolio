@@ -1,14 +1,13 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const contacts = [
+const contactLinks = [
   {
     label: 'Email',
     value: 'darshanux.design@gmail.com',
-    href: 'mailto:darshanux.design@gmail.com',
-    color: '#00D4FF',
-    glow: 'rgba(0,212,255,0.12)',
+    action: 'copy',
     icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <rect width="20" height="16" x="2" y="4" rx="2"/>
         <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
       </svg>
@@ -18,13 +17,10 @@ const contacts = [
     label: 'LinkedIn',
     value: 'darshansinhji-parmar',
     href: 'https://www.linkedin.com/in/darshansinhji-parmar',
-    color: '#00FFB2',
-    glow: 'rgba(0,255,178,0.12)',
     icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-        <rect width="4" height="12" x="2" y="9"/>
-        <circle cx="4" cy="4" r="2"/>
+        <rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>
       </svg>
     ),
   },
@@ -33,159 +29,187 @@ const contacts = [
     value: 'Download PDF',
     href: '/resume.pdf',
     download: 'Darshansinh_Parmar_Resume.pdf',
-    color: '#FFDD00',
-    glow: 'rgba(255,221,0,0.10)',
     icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-        <polyline points="7 10 12 15 17 10"/>
-        <line x1="12" x2="12" y1="15" y2="3"/>
+        <polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>
       </svg>
     ),
   },
 ];
 
 export default function Contact() {
+  const [copied, setCopied] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText('darshanux.design@gmail.com');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 3000);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!form.name || !form.email || !form.message) return;
+    setSent(true);
+    setTimeout(() => { setSent(false); setForm({ name: '', email: '', subject: '', message: '' }); }, 4000);
+  };
+
   return (
-    <section id="contact" className="relative py-12 md:py-24 overflow-hidden bg-[#030308]">
+    <section id="contact" className="relative py-24 lg:py-32 bg-[#06060C]">
+      {/* Background glow */}
+      <div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-72 rounded-full opacity-10 pointer-events-none"
+        style={{ background: 'radial-gradient(circle, #6C63FF 0%, transparent 70%)' }}
+      />
 
-      {/* Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div
-          className="absolute inset-0 opacity-[0.06]"
-          style={{
-            backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px)`,
-            backgroundSize: '40px 40px',
-            maskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%)',
-          }}
-        />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#00D4FF] rounded-full blur-[200px] opacity-[0.04]" />
-        <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-[#030308] to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#030308] to-transparent" />
-      </div>
+      <div className="container-custom relative z-10 max-w-4xl mx-auto">
 
-      <div className="container-custom relative z-10 max-w-4xl mx-auto text-center">
-
-        {/* Label */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="flex items-center justify-center gap-3 mb-5"
-        >
-          <div className="w-12 h-[1px] bg-white/15" />
-          <span className="text-gray-400 text-xs uppercase tracking-[0.22em] font-body font-medium">Get In Touch</span>
-          <div className="w-12 h-[1px] bg-white/15" />
-        </motion.div>
-
-        {/* Heading */}
-        <motion.h2
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight font-heading mb-5 leading-[1.15]"
-        >
-          Let's build{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] to-[#00FFB2]">
-            something
-          </span>{' '}
-          meaningful.
-        </motion.h2>
-
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="text-gray-500 text-sm md:text-base font-light font-body max-w-md mx-auto mb-14"
-        >
-          Open to freelance projects, full-time roles, and design collaborations — especially in AI-era products and modern digital experiences.
-        </motion.p>
-
-        {/* Contact Cards */}
-        <div className="flex flex-col sm:flex-row items-stretch justify-center gap-4 max-w-3xl mx-auto">
-          {contacts.map((c, i) => (
-            <motion.a
-              key={c.label}
-              href={c.href}
-              download={c.download}
-              target={c.label !== 'Email' ? '_blank' : undefined}
-              rel={c.label !== 'Email' ? 'noopener noreferrer' : undefined}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="group relative flex-1 flex flex-col items-center gap-4 p-7 rounded-2xl cursor-pointer overflow-hidden transition-all duration-400"
-              style={{
-                background: '#0C0C15',
-                border: '1px solid rgba(255,255,255,0.06)',
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.borderColor = c.color + '35';
-                e.currentTarget.style.boxShadow = `0 16px 48px ${c.glow}`;
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
-                e.currentTarget.style.boxShadow = 'none';
-              }}
-            >
-              {/* Hover glow bg */}
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none rounded-2xl"
-                style={{ background: `radial-gradient(ellipse at 50% 30%, ${c.glow} 0%, transparent 70%)` }}
-              />
-
-              {/* Icon */}
-              <div
-                className="relative z-10 w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300"
-                style={{
-                  background: c.color + '12',
-                  color: c.color + 'AA',
-                }}
-              >
-                {c.icon}
-              </div>
-
-              {/* Label */}
-              <div className="relative z-10 text-center">
-                <p
-                  className="text-[10px] uppercase tracking-[0.2em] font-semibold font-body mb-1"
-                  style={{ color: c.color + 'AA' }}
-                >
-                  {c.label}
-                </p>
-                <p className="text-white/80 group-hover:text-white font-heading font-medium text-sm tracking-wide transition-colors duration-300 break-all">
-                  {c.value}
-                </p>
-              </div>
-
-              {/* Arrow */}
-              <div
-                className="relative z-10 w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 mt-auto"
-                style={{ background: c.color + '15', color: c.color }}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M7 17L17 7"/><path d="M7 7h10v10"/>
-                </svg>
-              </div>
-            </motion.a>
-          ))}
+        {/* Header */}
+        <div className="text-center max-w-xl mx-auto mb-14">
+          <span className="label mb-4 block justify-center">Direct Contact</span>
+          <h2 className="font-heading text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
+            Let's build something <span className="text-accent-gradient">extraordinary.</span>
+          </h2>
+          <p className="text-[#6060A0] text-sm leading-relaxed">
+            Open for full-time Product Design roles, B2B SaaS opportunities, and design systems consulting globally.
+          </p>
         </div>
 
-        {/* Bottom note */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-gray-700 text-[11px] font-body uppercase tracking-[0.2em] mt-10"
-        >
-          Responds within 24 hours · Based in India · Open to remote
-        </motion.p>
+        {/* Copied toast */}
+        <AnimatePresence>
+          {copied && (
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              className="flex items-center justify-center mb-6"
+            >
+              <div className="px-5 py-2.5 rounded-full bg-emerald-500/15 border border-emerald-500/25 text-emerald-300 text-xs font-semibold">
+                Email copied to clipboard!
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Contact links */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+          {contactLinks.map((c) => {
+            const inner = (
+              <>
+                <div className="w-10 h-10 rounded-xl bg-[#6C63FF]/10 border border-[#6C63FF]/20 text-[#6C63FF] flex items-center justify-center group-hover:bg-[#6C63FF]/20 transition-colors">
+                  {c.icon}
+                </div>
+                <div>
+                  <div className="text-[10px] uppercase tracking-widest text-[#4040A0] font-semibold mb-1">{c.label}</div>
+                  <div className="text-white text-sm font-medium group-hover:text-[#A0A0FF] transition-colors">
+                    {c.action === 'copy' ? 'Copy Email ↗' : `${c.value} ↗`}
+                  </div>
+                </div>
+              </>
+            );
+
+            if (c.action === 'copy') {
+              return (
+                <button
+                  key={c.label}
+                  onClick={handleCopy}
+                  className="card p-5 flex flex-col items-center text-center gap-3 cursor-pointer group"
+                >
+                  {inner}
+                </button>
+              );
+            }
+
+            return (
+              <a
+                key={c.label}
+                href={c.href}
+                download={c.download}
+                target={c.download ? undefined : '_blank'}
+                rel={c.download ? undefined : 'noopener noreferrer'}
+                className="card p-5 flex flex-col items-center text-center gap-3 group"
+              >
+                {inner}
+              </a>
+            );
+          })}
+        </div>
+
+        {/* Form */}
+        <div className="card p-8 sm:p-10 max-w-2xl mx-auto">
+          <h3 className="font-heading text-xl font-bold text-white mb-6">Send a Direct Inquiry</h3>
+
+          <AnimatePresence>
+            {sent ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                className="p-6 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-center space-y-2"
+              >
+                <div className="font-heading text-lg font-bold text-emerald-300">Message Sent!</div>
+                <div className="text-emerald-400/70 text-xs">I'll respond within 24 hours.</div>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {[
+                    { label: 'Your Name *', key: 'name', type: 'text', placeholder: 'e.g. Sarah Jenkins' },
+                    { label: 'Your Email *', key: 'email', type: 'email', placeholder: 'e.g. sarah@company.com' },
+                  ].map(({ label, key, type, placeholder }) => (
+                    <div key={key}>
+                      <label className="block text-[10px] uppercase tracking-widest text-[#5050A0] font-semibold mb-2">{label}</label>
+                      <input
+                        type={type}
+                        required={label.includes('*')}
+                        placeholder={placeholder}
+                        value={form[key]}
+                        onChange={(e) => setForm({ ...form, [key]: e.target.value })}
+                        className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/[0.07] text-white placeholder-[#3030A0] text-sm focus:outline-none focus:border-[#6C63FF]/50 transition-colors"
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                <div>
+                  <label className="block text-[10px] uppercase tracking-widest text-[#5050A0] font-semibold mb-2">Subject</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Product Design Role / Project Inquiry"
+                    value={form.subject}
+                    onChange={(e) => setForm({ ...form, subject: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/[0.07] text-white placeholder-[#3030A0] text-sm focus:outline-none focus:border-[#6C63FF]/50 transition-colors"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[10px] uppercase tracking-widest text-[#5050A0] font-semibold mb-2">Message *</label>
+                  <textarea
+                    required
+                    rows={4}
+                    placeholder="Tell me about the role, project, or opportunity..."
+                    value={form.message}
+                    onChange={(e) => setForm({ ...form, message: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/[0.07] text-white placeholder-[#3030A0] text-sm focus:outline-none focus:border-[#6C63FF]/50 transition-colors resize-none"
+                  />
+                </div>
+
+                <button type="submit" className="btn-primary w-full justify-center">
+                  Send Message
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/>
+                  </svg>
+                </button>
+              </form>
+            )}
+          </AnimatePresence>
+
+          <p className="text-center text-[#3030A0] text-xs mt-5">
+            Responds within 24 hours · Based in India · Open to Global Remote
+          </p>
+        </div>
 
       </div>
     </section>

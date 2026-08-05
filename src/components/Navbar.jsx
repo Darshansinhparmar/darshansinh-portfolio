@@ -1,113 +1,119 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const navItems = [
+  { label: 'Work', id: 'work' },
+  { label: 'About', id: 'about' },
+  { label: 'Skills', id: 'skills' },
+  { label: 'Methods', id: 'methods' },
+  { label: 'Contact', id: 'contact' },
+];
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isLightMode, setIsLightMode] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const fn = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', fn);
+    return () => window.removeEventListener('scroll', fn);
   }, []);
 
-  const toggleTheme = () => {
-    setIsLightMode(!isLightMode);
-  };
-
   const scrollTo = (id) => {
-    setIsOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    setOpen(false);
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
-
-  const navLinks = ['Home', 'Work', 'About', 'Skills',];
 
   return (
     <>
       <motion.nav
-        initial={{ y: -100, opacity: 0 }}
+        initial={{ y: -56, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'py-2 backdrop-blur-md bg-[#020202]/80 border-b border-white/5' : 'py-4'
-          }`}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? 'py-3 bg-[#06060C]/90 backdrop-blur-xl border-b border-white/[0.05] shadow-[0_4px_30px_rgba(0,0,0,0.5)]'
+            : 'py-5'
+        }`}
       >
         <div className="container-custom flex items-center justify-between">
-          <div className="text-xl font-bold tracking-tight cursor-pointer flex items-center" onClick={() => scrollTo('hero')}>
-          </div>
 
-          <div className="hidden lg:flex items-center space-x-1 glass-panel rounded-full px-4 py-1.5">
-            {navLinks.map((item) => (
+          {/* Logo */}
+          <button
+            onClick={() => scrollTo('hero')}
+            className="font-heading text-lg font-bold tracking-tight cursor-pointer group"
+          >
+            <span className="text-white group-hover:text-[#A0A0FF] transition-colors">DARSHAN</span>
+            <span className="text-[#6C63FF]">.</span>
+          </button>
+
+          {/* Desktop nav */}
+          <div className="hidden lg:flex items-center gap-1 bg-white/[0.03] border border-white/[0.07] rounded-full px-3 py-1.5">
+            {navItems.map(({ label, id }) => (
               <button
-                key={item}
-                onClick={() => scrollTo(item === 'Home' ? 'hero' : item.toLowerCase())}
-                className="px-3 py-1.5 text-xs lg:text-sm font-medium text-gray-300 hover:text-white transition-colors relative group"
+                key={id}
+                onClick={() => scrollTo(id)}
+                className="px-4 py-1.5 rounded-full text-sm text-[#8A8AA0] hover:text-white hover:bg-white/[0.06] transition-all duration-200 font-medium cursor-pointer"
               >
-                {item}
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-[var(--accent-blue)] transition-all duration-300 group-hover:w-1/2 rounded-full shadow-[0_0_8px_var(--accent-blue)]"></span>
+                {label}
               </button>
             ))}
           </div>
 
-          <div className="flex items-center gap-4">
+          {/* Right actions */}
+          <div className="flex items-center gap-3">
             <button
               onClick={() => scrollTo('contact')}
-              className="hidden lg:flex px-6 py-2.5 rounded-full bg-white text-black text-sm font-semibold hover:scale-105 transition-transform"
+              className="hidden lg:flex btn-primary px-5 py-2.5 text-xs"
             >
-              Contact Me
+              Hire Me
             </button>
 
-            {/* Mobile Menu Toggle — shows on all screens below lg (1024px) */}
+            {/* Mobile hamburger */}
             <button
-              className="lg:hidden flex flex-col items-center justify-center w-10 h-10 rounded-full border border-white/10 bg-white/5 relative z-50"
-              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Menu"
+              onClick={() => setOpen(!open)}
+              className="lg:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] cursor-pointer"
             >
-              <span className={`w-5 h-[2px] bg-white transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-1.5' : '-translate-y-1'}`}></span>
-              <span className={`w-5 h-[2px] bg-white transition-all duration-300 ${isOpen ? 'opacity-0' : 'opacity-100'}`}></span>
-              <span className={`w-5 h-[2px] bg-white transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-1.5' : 'translate-y-1'}`}></span>
+              <span className={`w-5 h-[1.5px] bg-white transition-all ${open ? 'rotate-45 translate-y-[5px]' : ''}`} />
+              <span className={`w-5 h-[1.5px] bg-white transition-all ${open ? 'opacity-0' : ''}`} />
+              <span className={`w-5 h-[1.5px] bg-white transition-all ${open ? '-rotate-45 -translate-y-[5px]' : ''}`} />
             </button>
           </div>
         </div>
       </motion.nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile overlay */}
       <AnimatePresence>
-        {isOpen && (
+        {open && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-[#020202]/95 backdrop-blur-xl flex flex-col items-center justify-center lg:hidden pt-20 pb-10 px-6"
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 bg-[#06060C]/98 backdrop-blur-2xl flex flex-col items-center justify-center gap-6 lg:hidden"
           >
-            <div className="flex flex-col items-center space-y-6 w-full max-w-sm">
-              {navLinks.map((item, i) => (
-                <motion.button
-                  key={item}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  onClick={() => scrollTo(item === 'Home' ? 'hero' : item.toLowerCase())}
-                  className="text-2xl font-medium text-gray-300 hover:text-white transition-colors w-full text-center py-2 border-b border-white/5"
-                >
-                  {item}
-                </motion.button>
-              ))}
+            {navItems.map(({ label, id }, i) => (
               <motion.button
-                initial={{ opacity: 0, y: 20 }}
+                key={id}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: navLinks.length * 0.1 }}
-                onClick={() => scrollTo('contact')}
-                className="w-full mt-4 px-6 py-4 rounded-full bg-[var(--accent-blue)] text-black text-lg font-semibold hover:bg-white transition-colors"
+                transition={{ delay: i * 0.06 }}
+                onClick={() => scrollTo(id)}
+                className="font-heading text-2xl font-bold text-[#8080B0] hover:text-white transition-colors cursor-pointer"
               >
-                Let's Talk
+                {label}
               </motion.button>
-            </div>
+            ))}
+            <motion.button
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: navItems.length * 0.06 }}
+              onClick={() => scrollTo('contact')}
+              className="btn-primary mt-4"
+            >
+              Hire Me
+            </motion.button>
           </motion.div>
         )}
       </AnimatePresence>
